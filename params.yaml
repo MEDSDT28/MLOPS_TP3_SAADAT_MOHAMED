@@ -1,0 +1,17 @@
+seed: 42
+test_size: 0.25
+
+mlflow:
+  tracking_uri: http://127.0.0.1:5000
+  experiment_name: tp2-predictive-maintenance
+
+model:
+  C: 1.0
+  max_iter: 1000
+
+quality_gate:
+  min_recall: 0.35
+  min_precision: 0.70
+  min_f1: 0.45
+  max_recall_drop: 0.10
+  max_f1_drop: 0.10
