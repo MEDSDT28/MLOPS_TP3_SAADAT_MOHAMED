@@ -26,12 +26,12 @@ def evaluate_quality_gate(metrics: dict, baseline: dict, policy: dict) -> dict:
             }
         )
 
-    for name in ("accuracy", "recall", "f1"):
+    for name in ("precision", "recall", "f1"):
         minimum(name)
     for metric in ("recall", "f1"):
         observed = float(metrics[metric])
         reference = float(baseline[metric])
-        allowed_drop = float(policy[f"max_{metric}_regression"])
+        allowed_drop = float(policy[f"max_{metric}_drop"])
         checks.append(
             {
                 "name": f"baseline_{metric}",
@@ -58,7 +58,7 @@ def main() -> None:
     baseline = json.loads(
         (ROOT / "quality_gates/baseline_metrics.json").read_text(encoding="utf-8")
     )
-    decision = evaluate_quality_gate(metrics, baseline, params["quality"])
+    decision = evaluate_quality_gate(metrics, baseline, params["quality_gate"])
     path = ROOT / "reports/quality_gate_decision.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(decision, indent=2) + "\n", encoding="utf-8")
