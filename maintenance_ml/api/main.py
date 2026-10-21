@@ -195,8 +195,14 @@ app = FastAPI(
     description="Versioned inference contract for the MLOps TP3 product.",
     lifespan=lifespan,
     responses={
-        422: {"model": ErrorResponse},
-        503: {"model": ErrorResponse},
+        422: {
+            "model": ErrorResponse,
+            "description": "Unprocessable Content",
+        },
+        503: {
+            "model": ErrorResponse,
+            "description": "Service Unavailable",
+        },
     },
 )
 
